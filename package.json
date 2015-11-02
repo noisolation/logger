@@ -1,0 +1,17 @@
+{
+  "name": "@noisolation/logger",
+  "version": "1.0.0",
+  "description": "Simple wrapper around bunyan.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Matias Doyle <doyle@noisolation.com>",
+  "license": "MIT",
+  "dependencies": {
+    "bunyan": "^1.5.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
+  }
+}
