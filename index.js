@@ -19,9 +19,13 @@ module.exports.configure = function(options) {
 };
 
 function defaultReportError(err, payload, req) {
-    payload = payload || {};
+    // Log as error for regular bunyan stream
+    this.error(err);
+
     if (!config.rollbar || config.rollbar.handleErrorWithPayloadData !== 'function') return;
 
-    payload.name = this.name;
+    payload = payload || {};
+    payload.custom = payload.custom || {};
+    payload.custom.name = payload.custom.name || this.name;
     config.rollbar.handleErrorWithPayloadData(err, payload, req);
 }
