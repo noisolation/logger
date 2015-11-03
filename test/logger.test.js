@@ -30,5 +30,16 @@ describe('@noisolation/logger', function() {
             var log = logger('test');
             log.reportError();
         });
+
+        it('should log error', function(done) {
+            logger.configure({});
+            var log = logger('test');
+            var expected = 'bip bop';
+            log.error = msg => {
+                assert(msg, expected);
+                done();
+            };
+            log.reportError(expected);
+        });
     });
 });
