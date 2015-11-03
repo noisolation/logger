@@ -36,9 +36,28 @@ describe('@noisolation/logger', function() {
             var log = logger('test');
             var expected = 'bip bop';
             log.error = msg => {
-                assert(msg, expected);
+                assert.equal(msg, expected);
                 done();
             };
+            log.reportError(expected);
+        });
+
+        it('should report error to rollbar', function(done) {
+            var expected = 'foo bop';
+            var name = 'test-report';
+            logger.configure({
+                rollbar: {
+                    handleErrorWithPayloadData: function(msg, payload) {
+                        assert.equal(msg, expected);
+                        assert.equal(typeof payload, 'object');
+                        assert.equal(payload.custom.name, name);
+                        done();
+                    }
+                }
+            });
+
+            var log = logger(name);
+            log.error = function noop() {};
             log.reportError(expected);
         });
     });
