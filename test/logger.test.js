@@ -64,10 +64,29 @@ describe('@noisolation/logger', function() {
         it('should return the passed error object', function() {
             logger.configure({});
             var log = logger('test');
+            log.error = function noop() {};
             var expected = new Error('bip bop');
             var ret = log.reportError(expected);
             assert(ret instanceof Error);
             assert.equal(ret.message, expected.message);
+        });
+
+        it('should let payload be a string which is added to the custom payload', function(done) {
+            var message = 'foo bop';
+            var name = 'test-msg-report';
+            logger.configure({
+                rollbar: {
+                    handleErrorWithPayloadData: function(err, payload) {
+                        assert.equal(err.message, 'Test');
+                        assert.equal(typeof payload, 'object');
+                        assert.equal(payload.custom.message, message);
+                        done();
+                    }
+                }
+            });
+            var log = logger(name);
+            log.error = () => {};
+            log.reportError(new Error('Test'), message);
         });
     });
 });

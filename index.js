@@ -23,6 +23,13 @@ function defaultReportError(err, payload, req) {
     this.error(err);
 
     if (config.rollbar && typeof config.rollbar.handleErrorWithPayloadData === 'function') {
+        let message;
+
+        if (typeof payload === 'string') {
+            message = payload;
+            payload = { custom: { message } };
+        }
+
         payload = payload || {};
         payload.custom = payload.custom || {};
         payload.custom.name = payload.custom.name || this.name;
