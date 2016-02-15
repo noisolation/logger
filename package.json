@@ -9,7 +9,7 @@
   "author": "Matias Doyle <doyle@noisolation.com>",
   "license": "MIT",
   "dependencies": {
-    "bunyan": "^1.5.1"
+    "bunyan": "^1.6.0"
   },
   "devDependencies": {
     "eslint": "^1.8.0",
