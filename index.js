@@ -22,9 +22,13 @@ function defaultReportError(err, payload, req) {
     // Log as error for regular bunyan stream
     this.error(err);
 
-    if (!config.rollbar || typeof config.rollbar.handleErrorWithPayloadData !== 'function') return;
-    payload = payload || {};
-    payload.custom = payload.custom || {};
-    payload.custom.name = payload.custom.name || this.name;
-    config.rollbar.handleErrorWithPayloadData(err, payload, req);
+    if (config.rollbar && typeof config.rollbar.handleErrorWithPayloadData === 'function') {
+        payload = payload || {};
+        payload.custom = payload.custom || {};
+        payload.custom.name = payload.custom.name || this.name;
+
+        config.rollbar.handleErrorWithPayloadData(err, payload, req);
+    }
+
+    return err;
 }

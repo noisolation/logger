@@ -60,5 +60,14 @@ describe('@noisolation/logger', function() {
             log.error = function noop() {};
             log.reportError(expected);
         });
+
+        it('should return the passed error object', function() {
+            logger.configure({});
+            var log = logger('test');
+            var expected = new Error('bip bop');
+            var ret = log.reportError(expected);
+            assert(ret instanceof Error);
+            assert.equal(ret.message, expected.message);
+        });
     });
 });
