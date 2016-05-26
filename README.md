@@ -34,3 +34,7 @@ By default the logger does not send Errors logged with `logger.error` anywhere b
 var logger = require('@noisolation/logger')('<logger name>');
 logger.reportError(new Error('test'), { /* Rollbar payload options */ }, request)
 ```
+
+### Disable logger
+
+When running tests it might be a good to disable logger. This is done by setting the env flag `DISABLE_LOGGER`. E.g. `$ DISABLE_LOGGER=1 mocha`.

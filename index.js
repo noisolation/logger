@@ -2,7 +2,7 @@
 
 let bunyan = require('bunyan');
 let config = {};
-const level = 'debug';
+const level = process.env.DISABLE_LOGGER ? bunyan.FATAL + 1 : 'debug';
 
 module.exports = function(name, options) {
     options = Object.assign({ name, level }, config.logger, options);
