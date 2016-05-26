@@ -1,6 +1,6 @@
 {
   "name": "@noisolation/logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Simple wrapper around bunyan.",
   "main": "index.js",
   "scripts": {
